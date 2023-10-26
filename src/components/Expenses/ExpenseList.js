@@ -18,8 +18,8 @@ const ExpenseList = (props) => {
           title={expense.title}
           amount={expense.amount}
           date={expense.date}
-          onDeleteList={onDeleteListHandler}
           installment={expense.installment}
+          onDeleteList={onDeleteListHandler}
         />
       ))}
     </ul>

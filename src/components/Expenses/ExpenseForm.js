@@ -6,7 +6,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-  const [enteredInstallment, setEnteredInstallment] = useState("");
+  const [enteredInstallment, setEnteredInstallment] = useState(1);
   // const [userInput, setUserInput] = useState({
   //   enteredTitle: '',
   //   enteredAmount: '',
@@ -57,12 +57,11 @@ const ExpenseForm = (props) => {
       date: new Date(enteredDate),
       installment: enteredInstallment,
     };
-
     props.onSaveExpenseData(expenseData);
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
-    setEnteredInstallment("");
+    setEnteredInstallment(1);
 
     props.onActivateModal();
   };
