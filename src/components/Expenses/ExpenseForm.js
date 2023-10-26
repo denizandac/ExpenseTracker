@@ -6,6 +6,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [enteredInstallment, setEnteredInstallment] = useState("");
   // const [userInput, setUserInput] = useState({
   //   enteredTitle: '',
   //   enteredAmount: '',
@@ -39,6 +40,14 @@ const ExpenseForm = (props) => {
     // });
   };
 
+  const installmentChangeHandler = (event) => {
+    setEnteredInstallment(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredInstallment: event.target.value,
+    // });
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -46,14 +55,26 @@ const ExpenseForm = (props) => {
       title: enteredTitle,
       amount: +enteredAmount,
       date: new Date(enteredDate),
+      installment: enteredInstallment,
     };
 
     props.onSaveExpenseData(expenseData);
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
+    setEnteredInstallment("");
+
     props.onActivateModal();
   };
+  const month = enteredDate !== "" ? new Date(enteredDate).getMonth() : 1;
+  const options = [12 - month];
+  for (let i = 1; i <= 12 - month; i++) {
+    options.push(
+      <option key={i} value={i}>
+        {i}
+      </option>
+    );
+  }
 
   return (
     <form onSubmit={submitHandler}>
@@ -85,6 +106,15 @@ const ExpenseForm = (props) => {
             value={enteredDate}
             onChange={dateChangeHandler}
           />
+        </div>
+        <div className="new-expense__select">
+          <label>Installment</label>
+          <select
+            value={enteredInstallment}
+            onChange={installmentChangeHandler}
+          >
+            {options}
+          </select>
         </div>
       </div>
       <div className="new-expense__actions">
