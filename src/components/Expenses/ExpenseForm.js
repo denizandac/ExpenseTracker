@@ -66,15 +66,7 @@ const ExpenseForm = (props) => {
 
     props.onActivateModal();
   };
-  const month = enteredDate !== "" ? new Date(enteredDate).getMonth() : 1;
-  const options = [12 - month];
-  for (let i = 1; i <= 12 - month; i++) {
-    options.push(
-      <option key={i} value={i}>
-        {i}
-      </option>
-    );
-  }
+  const month = enteredDate !== "" ? new Date(enteredDate).getMonth() : 0;
 
   return (
     <form onSubmit={submitHandler}>
@@ -107,13 +99,19 @@ const ExpenseForm = (props) => {
             onChange={dateChangeHandler}
           />
         </div>
-        <div className="new-expense__select">
+        <div className="new-expense__control">
           <label>Installment</label>
           <select
             value={enteredInstallment}
             onChange={installmentChangeHandler}
           >
-            {options}
+            {[...Array(12 - month)].map((each, index) => {
+              return (
+                <option key={index + 1} value={index + 1}>
+                  {index + 1}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>
